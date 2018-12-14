@@ -25,7 +25,7 @@ Usage
 
     usage:
     cmake-format [-h]
-                [--dump-config {yaml,json,python} | -i | -o OUTFILE_PATH]
+                [--dump-config {yaml,json,python} | -i | -o OUTFILE_PATH | -f DIRECTORY_PATH]
                 [-c CONFIG_FILE]
                 infilepath [infilepath ...]
 
@@ -53,6 +53,8 @@ Usage
       -i, --in-place
       -o OUTFILE_PATH, --outfile-path OUTFILE_PATH
                             Where to write the formatted file. Default is stdout.
+      -f FOLDER_PATH, --folder-path FOLDER_PATH
+                            Folder where should format cmake files.
       --dump {lex,parse,layout}
       -c CONFIG_FILE, --config-file CONFIG_FILE
                             path to configuration file
@@ -89,7 +91,9 @@ Usage
                             case
       --always-wrap [ALWAYS_WRAP [ALWAYS_WRAP ...]]
                             A list of command names which should always be wrapped
-
+      --ignore-directories IGNORE_DIRECTORIES
+                            list of directories which will be ignore during
+                            parsing, use ':' as separator directory
 
 ------------
 Integrations
@@ -145,6 +149,10 @@ pleasant way.
 
     # Format keywords consistently as 'lower' or 'upper' case
     keyword_case = u'unchanged'
+
+    # list of directories which will be ignore during parsing
+    ignore_directories:
+        - "/path/to/ignore/dir"
 
     # Specify structure for custom cmake functions
     additional_commands = {

@@ -13,6 +13,9 @@ separate_ctrl_name_with_space = False
 # If true, separate function names from the parenthesis with a space
 separate_fn_name_with_space = False
 
+# list of directories which will be ignore during parsing
+ignore_directories = ["/path/to/ignore/dir"]
+
 # Additional FLAGS and KWARGS for custom commands
 additional_commands = {
   "foo" : {

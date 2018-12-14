@@ -31,8 +31,8 @@ def parse_bool(string):
   return False
 
 
-def parse_as_list(string, sepr=":"):
-  return list(string.split(sepr))
+def parse_as_list(string, separator=":"):
+  return list(string.split(separator))
 
 
 class ConfigObject(object):
