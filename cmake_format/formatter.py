@@ -1185,6 +1185,7 @@ class CursorFile(object):
     self._fobj = io.StringIO()
     self._cursor = np.array((0, 0))
     self._config = config
+    self.IS_NEW_LINE = -1
 
   @property
   def cursor(self):
@@ -1206,7 +1207,7 @@ class CursorFile(object):
 
   def forge_cursor(self, cursor):
     self._cursor = cursor
-
+    
   def write_at(self, cursor, text):
     if sys.version_info[0] < 3 and isinstance(text, str):
       text = text.decode('utf-8')
@@ -1225,6 +1226,15 @@ class CursorFile(object):
 
     lines = text.split('\n')
     line = lines.pop(0)
+    
+    if text == "(": 
+      self.IS_NEW_LINE = cursor[0]
+
+    if text == ")" and cursor[0] == self.IS_NEW_LINE:
+      line = ")"
+    elif text == ")" and cursor[0] != self.IS_NEW_LINE:
+      line = "\n)"
+
     self._fobj.write(line)
     self._cursor[1] += len(line)
 
@@ -1249,7 +1259,6 @@ class CursorFile(object):
 
   def getvalue(self):
     return self._fobj.getvalue() + self._config.endl
-
 
 class Global(object):
   """
